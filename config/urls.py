@@ -9,6 +9,8 @@ urlpatterns = [
 
     path("", include("dashboard.urls")),
     path("accounts/", include("accounts.urls")),
+    path("accounts/", include("django.contrib.auth.urls")),
+    path("journal/", include("journal.urls")),
 
     # Authentication
     path(
