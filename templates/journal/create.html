@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block title %}
+New Journal
+{% endblock %}
+
+{% block content %}
+
+<div class="row justify-content-center">
+
+    <div class="col-md-8">
+
+        <div class="card shadow-sm border-0">
+
+            <div class="card-body p-5">
+
+                <h2 class="fw-bold text-center mb-4">
+                    ✍️ Write a New Journal
+                </h2>
+
+                <form method="POST">
+
+                    {% csrf_token %}
+
+                    {{ form.as_p }}
+
+                    <button type="submit" class="btn btn-dark w-100">
+                        Save Journal
+                    </button>
+
+                </form>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}
