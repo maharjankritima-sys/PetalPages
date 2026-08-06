@@ -1,0 +1,30 @@
+body{
+    background:#fdfaf7;
+    font-family: "Segoe UI", sans-serif;
+}
+
+.navbar{
+    background:white !important;
+}
+
+.hero{
+    padding:90px 0;
+}
+
+.hero h1{
+    font-size:3rem;
+    font-weight:700;
+}
+
+.hero p{
+    color:#666;
+    font-size:1.2rem;
+}
+
+.btn-dark{
+    border-radius:30px;
+}
+
+.btn-outline-dark{
+    border-radius:30px;
+}
