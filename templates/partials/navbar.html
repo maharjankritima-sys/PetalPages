@@ -15,6 +15,9 @@
 
                 <form method="POST" action="{% url 'logout' %}" class="d-inline">
                     {% csrf_token %}
+                    <a href="{% url 'journal_dashboard' %}" class="btn btn-dark me-2">
+    📖 My Journal
+</a>
                     <button type="submit" class="btn btn-outline-dark">
                         Logout
                     </button>

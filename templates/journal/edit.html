@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block title %}Edit Journal{% endblock %}
+
+{% block content %}
+
+<h2 class="mb-4">✏️ Edit Journal</h2>
+
+<form method="POST">
+
+    {% csrf_token %}
+
+    {{ form.as_p }}
+
+    <button class="btn btn-dark">
+        Save Changes
+    </button>
+
+    <a href="{% url 'journal_detail' journal.id %}"
+       class="btn btn-outline-dark">
+        Cancel
+    </a>
+
+</form>
+
+{% endblock %}

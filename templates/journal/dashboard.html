@@ -30,6 +30,10 @@
             <p>
                 {{ journal.content|truncatewords:25 }}
             </p>
+            <a href="{% url 'journal_detail' journal.id %}"
+   class="btn btn-outline-dark">
+    Read More →
+</a>
 
         </div>
     </div>

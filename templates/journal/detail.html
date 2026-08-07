@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block title %}{{ journal.title }}{% endblock %}
+
+{% block content %}
+
+<div class="card shadow-sm">
+
+    <div class="card-body">
+
+        <h2>{{ journal.title }}</h2>
+
+        <p class="text-muted">
+            {{ journal.created_at|date:"F d, Y" }}
+        </p>
+
+        <hr>
+
+        <p style="white-space: pre-line;">
+            {{ journal.content }}
+        </p>
+<a href="{% url 'edit_journal' journal.id %}"
+   class="btn btn-dark">
+    ✏️ Edit
+</a>
+<a href="{% url 'delete_journal' journal.id %}"
+   class="btn btn-danger">
+    🗑 Delete
+</a>
+        <a href="{% url 'journal_dashboard' %}"
+           class="btn btn-outline-dark mt-3">
+            ← Back
+        </a>
+    </div>
+
+</div>
+
+{% endblock %}

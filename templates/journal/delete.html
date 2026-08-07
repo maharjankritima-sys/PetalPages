@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block title %}Delete Journal{% endblock %}
+
+{% block content %}
+
+<div class="card shadow-sm p-4">
+
+    <h2>Delete Journal</h2>
+
+    <p>
+        Are you sure you want to delete
+        <strong>{{ journal.title }}</strong>?
+    </p>
+
+    <form method="POST">
+
+        {% csrf_token %}
+
+        <button class="btn btn-danger">
+            Yes, Delete
+        </button>
+
+        <a href="{% url 'journal_detail' journal.id %}"
+           class="btn btn-outline-dark">
+            Cancel
+        </a>
+
+    </form>
+
+</div>
+
+{% endblock %}
