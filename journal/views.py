@@ -7,13 +7,30 @@ from .forms import JournalEntryForm
 
 @login_required
 def dashboard(request):
+
     journals = JournalEntry.objects.filter(
         owner=request.user
-    ).order_by("-created_at")
+    )
 
-    return render(request, "journal/dashboard.html", {
-        "journals": journals
-    })
+    search = request.GET.get("search")
+
+    if search:
+        journals = journals.filter(
+            title__icontains=search
+        ) | journals.filter(
+            content__icontains=search
+        )
+
+    journals = journals.order_by("-created_at")
+
+    return render(
+        request,
+        "journal/dashboard.html",
+        {
+            "journals": journals,
+            "search": search,
+        }
+    )
 
 
 @login_required

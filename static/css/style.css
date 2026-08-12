@@ -28,3 +28,18 @@ body{
 .btn-outline-dark{
     border-radius:30px;
 }
+.card {
+    transition: 0.25s;
+}
+
+.card:hover {
+    transform: translateY(-4px);
+}
+
+.btn-dark {
+    border-radius: 50px;
+}
+
+.form-control {
+    border-radius: 50px;
+}
