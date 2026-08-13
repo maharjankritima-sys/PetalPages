@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+
+{% block title %}Trash{% endblock %}
+
+{% block content %}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+
+    <h2>🗑️ Trash</h2>
+
+    <a href="{% url 'journal_dashboard' %}"
+       class="btn btn-outline-dark rounded-pill">
+        ← My Journal
+    </a>
+
+</div>
+
+{% if deleted_journals %}
+
+    {% for journal in deleted_journals %}
+
+    <div class="card shadow-sm border-0 rounded-4 mb-3">
+
+        <div class="card-body p-4">
+
+            <h4 class="fw-bold">
+                {{ journal.title }}
+            </h4>
+
+            <p class="text-muted mb-2">
+                Deleted on {{ journal.deleted_at|date:"F d, Y" }}
+            </p>
+
+            <p>
+                {{ journal.content|truncatewords:20 }}
+            </p>
+
+            <div class="d-flex gap-2">
+
+                <button class="btn btn-outline-dark rounded-pill">
+                    ♻️ Restore
+                </button>
+
+               <a href="{% url 'delete_permanently' journal.id %}"
+   class="btn btn-danger rounded-pill"
+   onclick="return confirm('Are you sure? This journal will be permanently deleted and cannot be restored.');">
+    🗑️ Delete Permanently
+</a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    {% endfor %}
+
+{% else %}
+
+<div class="text-center mt-5">
+
+    <h3>🗑️ Trash is empty</h3>
+
+    <p class="text-muted">
+        Deleted journals will appear here.
+    </p>
+
+</div>
+
+{% endif %}
+
+{% endblock %}

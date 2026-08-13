@@ -15,4 +15,10 @@ path(
     views.delete_journal,
     name="delete_journal",
 ),
+path("trash/", views.trash, name="trash"),
+path(
+    "<int:journal_id>/delete-permanently/",
+    views.delete_permanently,
+    name="delete_permanently",
+),
 ]

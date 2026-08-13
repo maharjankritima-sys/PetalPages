@@ -80,7 +80,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'petalpages_db',
         'USER': 'postgres',      # Change if your username is different
-        'PASSWORD': 'newpassword',
+        'PASSWORD': 'kritima16',
         'HOST': 'localhost',
         'PORT': '5432',
     }

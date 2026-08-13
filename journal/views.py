@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
-
+from django.utils import timezone
 from .models import JournalEntry
 from .forms import JournalEntryForm
 
@@ -9,7 +9,8 @@ from .forms import JournalEntryForm
 def dashboard(request):
 
     journals = JournalEntry.objects.filter(
-        owner=request.user
+        owner=request.user,
+        deleted_at__isnull=True
     )
 
     search = request.GET.get("search")
@@ -107,17 +108,39 @@ def delete_journal(request, journal_id):
     journal = get_object_or_404(
         JournalEntry,
         id=journal_id,
-        owner=request.user
+        owner=request.user,
+        deleted_at__isnull=True
     )
 
-    if request.method == "POST":
-        journal.delete()
-        return redirect("journal_dashboard")
+    journal.deleted_at = timezone.now()
+    journal.save()
+
+    return redirect("journal_dashboard")
+@login_required
+def trash(request):
+
+    deleted_journals = JournalEntry.objects.filter(
+        owner=request.user,
+        deleted_at__isnull=False
+    ).order_by("-deleted_at")
 
     return render(
         request,
-        "journal/delete.html",
+        "journal/trash.html",
         {
-            "journal": journal,
+            "deleted_journals": deleted_journals,
         }
     )
+@login_required
+def delete_permanently(request, journal_id):
+
+    journal = get_object_or_404(
+        JournalEntry,
+        id=journal_id,
+        owner=request.user,
+        deleted_at__isnull=False
+    )
+
+    journal.delete()
+
+    return redirect("trash")
