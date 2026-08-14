@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from django.db.models import Count
+from django.db.models import Count, Q
 from django.contrib.auth.decorators import login_required
 from django.utils import timezone
 from .models import JournalEntry
@@ -9,26 +9,39 @@ from .forms import JournalEntryForm
 @login_required
 def dashboard(request):
 
+    # Get only active journals
     journals = JournalEntry.objects.filter(
         owner=request.user,
         deleted_at__isnull=True
     )
 
-    search = request.GET.get("search")
+    # Search
+    search = request.GET.get("search", "").strip()
 
     if search:
         journals = journals.filter(
-            title__icontains=search
-        ) | journals.filter(
-            content__icontains=search
+            Q(title__icontains=search) |
+            Q(content__icontains=search)
         )
 
+    # Category filter
+    category = request.GET.get("category", "").strip()
+
+    if category:
+        journals = journals.filter(category=category)
+
+    # Order newest first
     journals = journals.order_by("-created_at")
 
-    mood_stats = journals.values(
-        "mood"
-    ).annotate(
-        total=Count("id")
+    # Mood summary
+    mood_stats = (
+        JournalEntry.objects.filter(
+            owner=request.user,
+            deleted_at__isnull=True
+        )
+        .values("mood")
+        .annotate(total=Count("id"))
+        .order_by("-total")
     )
 
     return render(
@@ -37,6 +50,7 @@ def dashboard(request):
         {
             "journals": journals,
             "search": search,
+            "category": category,
             "mood_stats": mood_stats,
         }
     )
