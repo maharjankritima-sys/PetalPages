@@ -42,35 +42,33 @@
 
 <div class="d-flex flex-wrap gap-2 mb-4">
 
-    <a href="{% url 'journal_dashboard' %}"
-       class="btn {% if not category %}btn-dark{% else %}btn-outline-dark{% endif %} rounded-pill">
-        🌸 All
-    </a>
+    <a href="?{% if search %}search={{ search|urlencode }}{% endif %}"
+   class="btn {% if not category %}btn-dark{% else %}btn-outline-dark{% endif %} rounded-pill">
+    🌸 All
+</a>
 
-    <a href="?category=personal"
-       class="btn {% if category == 'personal' %}btn-dark{% else %}btn-outline-dark{% endif %} rounded-pill">
-        💭 Personal
-    </a>
+    <a href="?category=personal{% if search %}&search={{ search|urlencode }}{% endif %}"
+   class="btn {% if category == 'personal' %}btn-dark{% else %}btn-outline-dark{% endif %} rounded-pill">
+    💭 Personal
+</a>
+<a href="?category=study{% if search %}&search={{ search|urlencode }}{% endif %}"
+   class="btn {% if category == 'study' %}btn-dark{% else %}btn-outline-dark{% endif %} rounded-pill">
+    📚 Study
+</a>
+    <a href="?category=memories{% if search %}&search={{ search|urlencode }}{% endif %}"
+   class="btn {% if category == 'memories' %}btn-dark{% else %}btn-outline-dark{% endif %} rounded-pill">
+    📸 Memories
+</a>
 
-    <a href="?category=study"
-       class="btn {% if category == 'study' %}btn-dark{% else %}btn-outline-dark{% endif %} rounded-pill">
-        📚 Study
-    </a>
+    <a href="?category=goals{% if search %}&search={{ search|urlencode }}{% endif %}"
+   class="btn {% if category == 'goals' %}btn-dark{% else %}btn-outline-dark{% endif %} rounded-pill">
+    🎯 Goals
+</a>
 
-    <a href="?category=memories"
-       class="btn {% if category == 'memories' %}btn-dark{% else %}btn-outline-dark{% endif %} rounded-pill">
-        📸 Memories
-    </a>
-
-    <a href="?category=goals"
-       class="btn {% if category == 'goals' %}btn-dark{% else %}btn-outline-dark{% endif %} rounded-pill">
-        🎯 Goals
-    </a>
-
-    <a href="?category=other"
-       class="btn {% if category == 'other' %}btn-dark{% else %}btn-outline-dark{% endif %} rounded-pill">
-        🌿 Other
-    </a>
+   <a href="?category=other{% if search %}&search={{ search|urlencode }}{% endif %}"
+   class="btn {% if category == 'other' %}btn-dark{% else %}btn-outline-dark{% endif %} rounded-pill">
+    🌿 Other
+</a>
 
 </div>
 
