@@ -39,6 +39,7 @@ class JournalEntry(models.Model):
     choices=MOOD_CHOICES,
     default="happy"
 )
+    is_favorite = models.BooleanField(default=False)
 
     content = models.TextField()
 

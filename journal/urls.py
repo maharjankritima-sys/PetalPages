@@ -21,4 +21,5 @@ path(
     views.delete_permanently,
     name="delete_permanently",
 ),
+path("favorite/<int:journal_id>/", views.toggle_favorite, name="toggle_favorite"),
 ]

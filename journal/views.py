@@ -26,9 +26,13 @@ def dashboard(request):
 
     # Category filter
     category = request.GET.get("category", "").strip()
+    favorite = request.GET.get("favorite")
 
     if category:
         journals = journals.filter(category=category)
+
+    if favorite == "true":
+        journals = journals.filter(is_favorite=True)
 
     # Order newest first
     journals = journals.order_by("-created_at")
@@ -52,8 +56,23 @@ def dashboard(request):
             "search": search,
             "category": category,
             "mood_stats": mood_stats,
+            "favorite": favorite,
         }
     )
+@login_required
+def toggle_favorite(request, journal_id):
+
+    journal = get_object_or_404(
+        JournalEntry,
+        id=journal_id,
+        owner=request.user,
+        deleted_at__isnull=True
+    )
+
+    journal.is_favorite = not journal.is_favorite
+    journal.save()
+
+    return redirect("journal_dashboard")
 
 @login_required
 def create_journal(request):
