@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404
+from django.db.models import Count
 from django.contrib.auth.decorators import login_required
 from django.utils import timezone
 from .models import JournalEntry
@@ -24,15 +25,21 @@ def dashboard(request):
 
     journals = journals.order_by("-created_at")
 
+    mood_stats = journals.values(
+        "mood"
+    ).annotate(
+        total=Count("id")
+    )
+
     return render(
         request,
         "journal/dashboard.html",
         {
             "journals": journals,
             "search": search,
+            "mood_stats": mood_stats,
         }
     )
-
 
 @login_required
 def create_journal(request):

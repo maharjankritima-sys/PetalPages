@@ -16,19 +16,45 @@
     {{ journal.created_at|date:"F d, Y" }}
 </p>
 
-<span class="badge bg-light text-dark rounded-pill">
+<div class="d-flex gap-2 flex-wrap">
 
-    {% if journal.category == "personal" %}
-        💭 Personal
-    {% elif journal.category == "study" %}
-        📚 Study
-    {% elif journal.category == "memories" %}
-        📸 Memories
-    {% elif journal.category == "goals" %}
-        🎯 Goals
-    {% elif journal.category == "other" %}
-        🌿 Other
-    {% endif %}
+    <span class="badge bg-light text-dark rounded-pill">
+
+        {% if journal.category == "personal" %}
+            💭 Personal
+        {% elif journal.category == "study" %}
+            📚 Study
+        {% elif journal.category == "memories" %}
+            📸 Memories
+        {% elif journal.category == "goals" %}
+            🎯 Goals
+        {% elif journal.category == "other" %}
+            🌿 Other
+        {% endif %}
+
+    </span>
+
+    <span class="badge bg-light text-dark rounded-pill">
+
+        {% if journal.mood == "happy" %}
+            😊 Happy
+        {% elif journal.mood == "calm" %}
+            😌 Calm
+        {% elif journal.mood == "loved" %}
+            🥰 Loved
+        {% elif journal.mood == "sad" %}
+            😢 Sad
+        {% elif journal.mood == "angry" %}
+            😡 Angry
+        {% elif journal.mood == "anxious" %}
+            😰 Anxious
+        {% elif journal.mood == "tired" %}
+            😴 Tired
+        {% endif %}
+
+    </span>
+
+</div>
 
 </span>
             <hr>

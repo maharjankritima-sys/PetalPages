@@ -5,7 +5,7 @@ from .models import JournalEntry
 class JournalEntryForm(forms.ModelForm):
     class Meta:
         model = JournalEntry
-        fields = ["title", "category", "content"]
+        fields = ["title", "category","mood", "content"]
 
         widgets = {
             "title": forms.TextInput(attrs={
@@ -15,6 +15,9 @@ class JournalEntryForm(forms.ModelForm):
             "category": forms.Select(attrs={
                 "class": "form-control",
             }),
+            "mood": forms.Select(attrs={
+    "class": "form-control",
+}),
             "content": forms.Textarea(attrs={
                 "class": "form-control",
                 "rows": 8,

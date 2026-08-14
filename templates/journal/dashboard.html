@@ -34,6 +34,47 @@
 </div>
 
 {% if journals %}
+{% if mood_stats %}
+
+<div class="card shadow-sm border-0 rounded-4 mb-4">
+    <div class="card-body p-4">
+
+        <h4 class="mb-3">🌷 Your Mood Summary</h4>
+
+        <div class="d-flex flex-wrap gap-2">
+
+            {% for mood in mood_stats %}
+
+                <span class="badge bg-light text-dark rounded-pill p-2">
+
+                    {% if mood.mood == "happy" %}
+                        😊 Happy
+                    {% elif mood.mood == "calm" %}
+                        😌 Calm
+                    {% elif mood.mood == "loved" %}
+                        🥰 Loved
+                    {% elif mood.mood == "sad" %}
+                        😢 Sad
+                    {% elif mood.mood == "angry" %}
+                        😡 Angry
+                    {% elif mood.mood == "anxious" %}
+                        😰 Anxious
+                    {% elif mood.mood == "tired" %}
+                        😴 Tired
+                    {% endif %}
+
+                    — {{ mood.total }}
+
+                </span>
+
+            {% endfor %}
+
+        </div>
+
+    </div>
+</div>
+
+{% endif %}
 
     {% for journal in journals %}
 <div class="card shadow-sm border-0 rounded-4 mb-4">
@@ -47,21 +88,45 @@
         <p class="text-muted mb-3">
             {{ journal.created_at|date:"F d, Y" }}
         </p>
-<span class="badge bg-light text-dark rounded-pill">
+<div class="d-flex gap-2 flex-wrap">
 
-    {% if journal.category == "personal" %}
-        💭 Personal
-    {% elif journal.category == "study" %}
-        📚 Study
-    {% elif journal.category == "memories" %}
-        📸 Memories
-    {% elif journal.category == "goals" %}
-        🎯 Goals
-    {% elif journal.category == "other" %}
-        🌿 Other
-    {% endif %}
+    <span class="badge bg-light text-dark rounded-pill">
 
-</span>
+        {% if journal.category == "personal" %}
+            💭 Personal
+        {% elif journal.category == "study" %}
+            📚 Study
+        {% elif journal.category == "memories" %}
+            📸 Memories
+        {% elif journal.category == "goals" %}
+            🎯 Goals
+        {% elif journal.category == "other" %}
+            🌿 Other
+        {% endif %}
+
+    </span>
+
+    <span class="badge bg-light text-dark rounded-pill">
+
+        {% if journal.mood == "happy" %}
+            😊 Happy
+        {% elif journal.mood == "calm" %}
+            😌 Calm
+        {% elif journal.mood == "loved" %}
+            🥰 Loved
+        {% elif journal.mood == "sad" %}
+            😢 Sad
+        {% elif journal.mood == "angry" %}
+            😡 Angry
+        {% elif journal.mood == "anxious" %}
+            😰 Anxious
+        {% elif journal.mood == "tired" %}
+            😴 Tired
+        {% endif %}
+
+    </span>
+
+</div>
         <hr>
 
         <p class="fs-5">

@@ -11,6 +11,15 @@ class JournalEntry(models.Model):
         ("goals", "Goals"),
         ("other", "Other"),
     ]
+    MOOD_CHOICES = [
+    ("happy", "😊 Happy"),
+    ("calm", "😌 Calm"),
+    ("loved", "🥰 Loved"),
+    ("sad", "😢 Sad"),
+    ("angry", "😡 Angry"),
+    ("anxious", "😰 Anxious"),
+    ("tired", "😴 Tired"),
+]
 
     owner = models.ForeignKey(
         User,
@@ -25,6 +34,11 @@ class JournalEntry(models.Model):
         choices=CATEGORY_CHOICES,
         default="personal"
     )
+    mood = models.CharField(
+    max_length=20,
+    choices=MOOD_CHOICES,
+    default="happy"
+)
 
     content = models.TextField()
 
