@@ -1,49 +1,193 @@
 {% extends "base.html" %}
 
-{% block title %}Login{% endblock %}
+{% block body_class %}auth-page{% endblock %}
+
+{% block title %}Login | Petal Pages{% endblock %}
 
 {% block content %}
 
-<div class="row justify-content-center">
+<div class="login-container">
 
-    <div class="col-md-5">
+    <div class="login-card">
 
-        <div class="card shadow-sm border-0 rounded-4">
+        <!-- Flower -->
 
-            <div class="card-body p-5">
+        <div class="login-icon">
+            🌸
+        </div>
 
-                <h2 class="text-center mb-4">
-                    Welcome Back
-                </h2>
 
-                <form method="POST">
+        <!-- Heading -->
 
-                    {% csrf_token %}
+        <div class="text-center mb-4">
 
-                    {{ form.as_p }}
+            <h1 class="login-title">
+                Welcome Back
+            </h1>
 
-                    <button class="btn btn-dark w-100 mt-3">
-                        Login
-                    </button>
+            <p class="login-subtitle">
+                Continue your journaling journey.
+            </p>
 
-                </form>
+        </div>
 
-                <p class="text-center mt-4">
 
-                    Don't have an account?
+        <form method="POST">
 
-                    <a href="{% url 'register' %}">
-                        Register
-                    </a>
+            {% csrf_token %}
 
-                </p>
+
+            <!-- Username -->
+
+            <div class="login-field mb-4">
+
+                <label for="id_username"
+                       class="form-label">
+
+                    <i class="bi bi-person"></i>
+                    Username
+
+                </label>
+
+                <input
+                    type="text"
+                    name="username"
+                    id="id_username"
+                    class="form-control"
+                    placeholder="Enter your username"
+                    autocomplete="username"
+                    required
+                >
 
             </div>
 
-        </div>
+
+            <!-- Password -->
+
+            <div class="login-field mb-4">
+
+                <label for="id_password"
+                       class="form-label">
+
+                    <i class="bi bi-lock"></i>
+                    Password
+
+                </label>
+
+                <div class="login-password-wrapper">
+
+                    <input
+                        type="password"
+                        name="password"
+                        id="id_password"
+                        class="form-control"
+                        placeholder="Enter your password"
+                        autocomplete="current-password"
+                        required
+                    >
+
+                    <button
+                        type="button"
+                        class="login-password-toggle"
+                        onclick="toggleLoginPassword()"
+                        aria-label="Show password">
+
+                        <i class="bi bi-eye"></i>
+
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <!-- Error -->
+
+            {% if form.errors %}
+
+                <div class="login-errors mb-3">
+
+                    <i class="bi bi-exclamation-circle"></i>
+
+                    Invalid username or password.
+
+                </div>
+
+            {% endif %}
+
+
+            <!-- Login Button -->
+
+            <button
+                type="submit"
+                class="btn btn-dark login-button w-100">
+
+                Login
+
+            </button>
+
+        </form>
+
+
+        <!-- Register -->
+
+        <p class="text-center login-register-text">
+
+            Don't have an account?
+
+            <a href="{% url 'register' %}">
+                Register
+            </a>
+
+        </p>
 
     </div>
 
 </div>
+
+
+<script>
+
+function toggleLoginPassword() {
+
+    const passwordField =
+        document.getElementById("id_password");
+
+    const button =
+        document.querySelector(".login-password-toggle");
+
+    const icon =
+        button.querySelector("i");
+
+
+    if (passwordField.type === "password") {
+
+        passwordField.type = "text";
+
+        icon.classList.remove("bi-eye");
+        icon.classList.add("bi-eye-slash");
+
+        button.setAttribute(
+            "aria-label",
+            "Hide password"
+        );
+
+    } else {
+
+        passwordField.type = "password";
+
+        icon.classList.remove("bi-eye-slash");
+        icon.classList.add("bi-eye");
+
+        button.setAttribute(
+            "aria-label",
+            "Show password"
+        );
+
+    }
+
+}
+
+</script>
 
 {% endblock %}

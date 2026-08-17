@@ -22,4 +22,10 @@ path(
     name="delete_permanently",
 ),
 path("favorite/<int:journal_id>/", views.toggle_favorite, name="toggle_favorite"),
+path(
+    "restore/<int:journal_id>/",
+    views.restore_journal,
+    name="restore_journal"
+),
+path("profile/", views.profile, name="profile"),
 ]

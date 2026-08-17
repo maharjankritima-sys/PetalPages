@@ -1,45 +1,783 @@
-body{
-    background:#fdfaf7;
+/* ============================= */
+/* 🌸 PETAL PAGES - BASE STYLE */
+/* ============================= */
+
+body {
+    background: #fdf7f5;
     font-family: "Segoe UI", sans-serif;
+    color: #3f3a3a;
 }
 
-.navbar{
-    background:white !important;
+
+/* ============================= */
+/* 🌷 NAVBAR */
+/* ============================= */
+
+.navbar {
+    background: #f8e9ee !important;
+    border-bottom: 1px solid #ead9df !important;
 }
 
-.hero{
-    padding:90px 0;
+.navbar-brand {
+    color: #5f4b4b !important;
 }
 
-.hero h1{
-    font-size:3rem;
-    font-weight:700;
+.navbar .btn {
+    font-size: 0.9rem;
 }
 
-.hero p{
-    color:#666;
-    font-size:1.2rem;
+
+/* ============================= */
+/* 🌸 HERO */
+/* ============================= */
+
+.hero {
+    padding: 90px 0;
 }
 
-.btn-dark{
-    border-radius:30px;
+.hero h1 {
+    font-size: 3rem;
+    font-weight: 700;
 }
 
-.btn-outline-dark{
-    border-radius:30px;
+.hero p {
+    color: #756d6d;
+    font-size: 1.2rem;
 }
+
+
+/* ============================= */
+/* 🌷 CARDS */
+/* ============================= */
+
 .card {
-    transition: 0.25s;
+    background: rgba(255, 255, 255, 0.82);
+    border: none !important;
+    transition: 0.25s ease;
 }
 
 .card:hover {
     transform: translateY(-4px);
 }
 
+
+/* ============================= */
+/* 🎀 BUTTONS */
+/* ============================= */
+
 .btn-dark {
     border-radius: 50px;
+    background: #5f4b4b;
+    border-color: #5f4b4b;
 }
+
+.btn-dark:hover {
+    background: #493939;
+    border-color: #493939;
+}
+
+.btn-outline-dark {
+    border-radius: 50px;
+    border-color: #8b7777;
+    color: #5f4b4b;
+}
+
+.btn-outline-dark:hover {
+    background: #5f4b4b;
+    border-color: #5f4b4b;
+}
+
+
+/* ============================= */
+/* 🌸 INPUTS */
+/* ============================= */
 
 .form-control {
     border-radius: 50px;
+    border: 1px solid #dfd1d1;
+    background: rgba(255, 255, 255, 0.8);
+}
+
+.form-control:focus {
+    border-color: #c9a6ad;
+    box-shadow: 0 0 0 0.2rem rgba(201, 166, 173, 0.2);
+}
+
+
+/* ============================= */
+/* 🌷 JOURNAL PAGE */
+/* ============================= */
+
+.journal-page {
+    background: #fdf1f4;
+}
+
+
+/* ============================= */
+/* 📝 CREATE JOURNAL */
+/* ============================= */
+
+.create-page {
+    background: #f4f0fa;
+}
+
+
+/* ============================= */
+/* 📖 JOURNAL DETAIL */
+/* ============================= */
+
+.detail-page {
+    background: #fff8ed;
+}
+
+
+/* ============================= */
+/* ✏️ EDIT JOURNAL */
+/* ============================= */
+
+.edit-page {
+    background: #fff2e8;
+}
+
+
+/* ============================= */
+/* 🗑️ TRASH */
+/* ============================= */
+
+.trash-page {
+    background: #f8eeee;
+}
+
+
+/* ============================= */
+/* 👤 PROFILE */
+/* ============================= */
+
+.profile-page {
+    background: #f3eff9;
+}
+
+
+/* ============================= */
+/* 🔐 LOGIN / REGISTER */
+/* ============================= */
+
+.auth-page {
+    background: #fdf0f5;
+}
+
+
+/* ============================= */
+/* 🌼 BADGES */
+/* ============================= */
+
+.badge {
+    font-weight: 500;
+}
+
+
+/* ============================= */
+/* 🌸 SMOOTH TRANSITIONS */
+/* ============================= */
+
+a,
+button {
+    transition: 0.2s ease;
+}
+/* ============================= */
+/* 🌸 FOOTER */
+/* ============================= */
+
+.petal-footer {
+    background: rgba(255, 240, 244, 0.75);
+    border-top: 1px solid #ead9df;
+    color: #756565;
+}
+
+.petal-footer small {
+    font-size: 0.9rem;
+}
+/* ============================= */
+/* 📱 MOBILE RESPONSIVENESS */
+/* ============================= */
+
+@media (max-width: 768px) {
+
+    /* Navbar */
+
+    .navbar .container {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+    }
+
+    .navbar .container > div {
+        width: 100%;
+    }
+
+    .navbar .btn {
+        margin: 0 !important;
+    }
+
+
+    /* Search */
+
+    form.d-flex {
+        width: 100%;
+    }
+
+    form.d-flex .form-control {
+        width: 100% !important;
+    }
+
+
+    /* Header */
+
+    .d-flex.justify-content-between.align-items-center.flex-wrap {
+        align-items: flex-start !important;
+    }
+
+
+    /* Hero */
+
+    .hero {
+        padding: 50px 0;
+    }
+
+    .hero h1 {
+        font-size: 2.2rem;
+    }
+
+    .hero p {
+        font-size: 1rem;
+    }
+
+
+    /* Cards */
+
+    .card-body {
+        padding: 1.25rem !important;
+    }
+
+
+    /* Journal titles */
+
+    .card h3 {
+        font-size: 1.4rem;
+    }
+
+
+    /* Buttons */
+
+    .btn {
+        white-space: nowrap;
+    }
+
+}
+/* ============================= */
+/* 🔐 LOGIN PAGE */
+/* ============================= */
+
+.login-container {
+    min-height: 75vh;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    padding: 30px 0;
+}
+
+
+.login-card {
+    width: 100%;
+    max-width: 620px;
+
+    background: rgba(255, 255, 255, 0.88);
+
+    padding: 45px 48px;
+
+    border-radius: 30px;
+
+    box-shadow:
+        0 10px 35px rgba(95, 75, 75, 0.08);
+}
+
+
+/* Flower */
+
+.login-icon {
+    width: 72px;
+    height: 72px;
+
+    margin: 0 auto 15px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+
+    background: #fde5ec;
+
+    font-size: 2.3rem;
+}
+
+
+/* Heading */
+
+.login-title {
+    font-size: 2.4rem;
+
+    font-weight: 700;
+
+    margin-bottom: 8px;
+}
+
+
+.login-subtitle {
+    color: #756d6d;
+
+    margin-bottom: 0;
+
+    font-size: 1rem;
+}
+
+
+/* Labels */
+
+.login-field .form-label {
+    display: block;
+
+    font-weight: 600;
+
+    margin-bottom: 8px;
+
+    color: #3f3535;
+}
+
+
+.login-field .form-label i {
+    margin-right: 6px;
+
+    color: #8c6972;
+}
+
+
+/* Inputs */
+
+.login-field input {
+    width: 100%;
+
+    height: 52px;
+
+    padding: 12px 18px;
+
+    border-radius: 16px;
+
+    border: 1px solid #dfcecf;
+
+    background: #fffdfd;
+
+    color: #3f3535;
+
+    font-size: 1rem;
+
+    transition: 0.2s ease;
+}
+
+
+.login-field input:focus {
+    outline: none;
+
+    border-color: #d795a7;
+
+    box-shadow:
+        0 0 0 4px rgba(215, 149, 167, 0.15);
+}
+
+
+/* Password */
+
+.login-password-wrapper {
+    position: relative;
+}
+
+
+.login-password-wrapper input {
+    padding-right: 55px;
+}
+
+
+.login-password-toggle {
+    position: absolute;
+
+    right: 8px;
+    top: 50%;
+
+    transform: translateY(-50%);
+
+    width: 40px;
+    height: 40px;
+
+    border: none;
+
+    background: transparent;
+
+    border-radius: 50%;
+
+    color: #756565;
+
+    cursor: pointer;
+
+    font-size: 1.1rem;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+.login-password-toggle:hover {
+    background: #f9e8ed;
+
+    color: #5f4b4b;
+}
+
+
+/* Error */
+
+.login-errors {
+    padding: 12px 15px;
+
+    border-radius: 14px;
+
+    background: #fff0f0;
+
+    border: 1px solid #f0cccc;
+
+    color: #9b4d4d;
+
+    font-size: 0.9rem;
+}
+
+
+/* Login button */
+
+.login-button {
+    height: 52px;
+
+    border-radius: 16px;
+
+    font-weight: 600;
+
+    font-size: 1rem;
+}
+
+
+/* Register text */
+
+.login-register-text {
+    margin-top: 25px;
+
+    margin-bottom: 0;
+
+    color: #4f4646;
+}
+
+
+.login-register-text a {
+    color: #c46d86;
+
+    font-weight: 600;
+
+    text-decoration: none;
+}
+
+
+.login-register-text a:hover {
+    text-decoration: underline;
+}
+
+
+/* ============================= */
+/* 📱 MOBILE */
+/* ============================= */
+
+@media (max-width: 576px) {
+
+    .login-container {
+        padding: 15px 0;
+    }
+
+    .login-card {
+        padding: 32px 22px;
+
+        border-radius: 24px;
+    }
+
+    .login-title {
+        font-size: 2rem;
+    }
+
+    .login-icon {
+        width: 62px;
+        height: 62px;
+
+        font-size: 2rem;
+    }
+
+}
+/* ============================= */
+/* 🌸 REGISTER PAGE */
+/* ============================= */
+
+.register-container {
+    min-height: 75vh;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    padding: 30px 0;
+}
+
+
+.register-card {
+    width: 100%;
+    max-width: 620px;
+
+    background: rgba(255, 255, 255, 0.88);
+
+    padding: 45px 48px;
+
+    border-radius: 30px;
+
+    box-shadow:
+        0 10px 35px rgba(95, 75, 75, 0.08);
+}
+
+
+/* Flower */
+
+.register-icon {
+    width: 72px;
+    height: 72px;
+
+    margin: 0 auto 15px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+
+    background: #fde5ec;
+
+    font-size: 2.3rem;
+}
+
+
+/* Heading */
+
+.register-title {
+    font-size: 2.4rem;
+    font-weight: 700;
+
+    margin-bottom: 8px;
+}
+
+
+.register-subtitle {
+    color: #756d6d;
+
+    margin-bottom: 0;
+
+    font-size: 1rem;
+}
+
+
+/* Labels */
+
+.register-field .form-label {
+    display: block;
+
+    font-weight: 600;
+
+    margin-bottom: 8px;
+
+    color: #3f3535;
+}
+
+
+.register-field .form-label i {
+    margin-right: 6px;
+
+    color: #8c6972;
+}
+
+
+/* Inputs */
+
+.register-field input {
+    width: 100%;
+
+    height: 52px;
+
+    padding: 12px 18px;
+
+    border-radius: 16px;
+
+    border: 1px solid #dfcecf;
+
+    background: #fffdfd;
+
+    color: #3f3535;
+
+    font-size: 1rem;
+
+    transition: 0.2s ease;
+}
+
+
+.register-field input:focus {
+    outline: none;
+
+    border-color: #d795a7;
+
+    box-shadow:
+        0 0 0 4px rgba(215, 149, 167, 0.15);
+}
+
+
+/* Password fields */
+
+.register-password-wrapper {
+    position: relative;
+}
+
+
+.register-password-wrapper input {
+    padding-right: 55px;
+}
+
+
+.register-password-toggle {
+    position: absolute;
+
+    right: 8px;
+    top: 50%;
+
+    transform: translateY(-50%);
+
+    width: 40px;
+    height: 40px;
+
+    border: none;
+
+    background: transparent;
+
+    border-radius: 50%;
+
+    color: #756565;
+
+    cursor: pointer;
+
+    font-size: 1.1rem;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+.register-password-toggle:hover {
+    background: #f9e8ed;
+
+    color: #5f4b4b;
+}
+
+
+/* Errors */
+
+.register-errors {
+    padding: 12px 15px;
+
+    border-radius: 14px;
+
+    background: #fff0f0;
+
+    border: 1px solid #f0cccc;
+
+    color: #9b4d4d;
+
+    font-size: 0.9rem;
+}
+
+
+/* Register button */
+
+.register-button {
+    height: 52px;
+
+    border-radius: 16px;
+
+    font-weight: 600;
+
+    font-size: 1rem;
+}
+
+
+/* Login text */
+
+.register-login-text {
+    margin-top: 25px;
+
+    margin-bottom: 0;
+
+    color: #4f4646;
+}
+
+
+.register-login-text a {
+    color: #c46d86;
+
+    font-weight: 600;
+
+    text-decoration: none;
+}
+
+
+.register-login-text a:hover {
+    text-decoration: underline;
+}
+
+
+/* ============================= */
+/* 📱 MOBILE */
+/* ============================= */
+
+@media (max-width: 576px) {
+
+    .register-container {
+        padding: 15px 0;
+    }
+
+    .register-card {
+        padding: 32px 22px;
+
+        border-radius: 24px;
+    }
+
+    .register-title {
+        font-size: 2rem;
+    }
+
+    .register-icon {
+        width: 62px;
+        height: 62px;
+
+        font-size: 2rem;
+    }
+
 }

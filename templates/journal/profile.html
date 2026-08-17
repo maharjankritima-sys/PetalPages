@@ -1,0 +1,132 @@
+{% extends "base.html" %}
+{% block body_class %}profile-page{% endblock %}
+
+{% block title %}My Profile{% endblock %}
+
+{% block content %}
+
+<div class="container">
+
+    <div class="text-center mb-5">
+
+        <h2>🌸 My Profile</h2>
+
+        <p class="text-muted">
+            Your Petal Pages account
+        </p>
+
+    </div>
+
+
+    <!-- Profile Information -->
+
+    <div class="card shadow-sm border-0 rounded-4 mb-4">
+
+        <div class="card-body p-4">
+
+            <h4 class="fw-bold mb-4">
+                👤 Account Information
+            </h4>
+
+            <div class="mb-3">
+
+                <p class="text-muted mb-1">
+                    Username
+                </p>
+
+                <h5>
+                    {{ request.user.username }}
+                </h5>
+
+            </div>
+
+
+            <div>
+
+                <p class="text-muted mb-1">
+                    📧 Email
+                </p>
+
+                <h5>
+                    {{ request.user.email|default:"No email added" }}
+                </h5>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- Journal Statistics -->
+
+    <div class="row g-3 mb-4">
+
+        <div class="col-md-6">
+
+            <div class="card shadow-sm border-0 rounded-4 h-100">
+
+                <div class="card-body p-4 text-center">
+
+                    <div class="fs-2">
+                        📝
+                    </div>
+
+                    <p class="text-muted mb-1">
+                        Total Journals
+                    </p>
+
+                    <h2 class="fw-bold">
+                        {{ total_journals }}
+                    </h2>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="col-md-6">
+
+            <div class="card shadow-sm border-0 rounded-4 h-100">
+
+                <div class="card-body p-4 text-center">
+
+                    <div class="fs-2">
+                        ⭐
+                    </div>
+
+                    <p class="text-muted mb-1">
+                        Favorite Journals
+                    </p>
+
+                    <h2 class="fw-bold">
+                        {{ favorite_count }}
+                    </h2>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- Back Button -->
+
+    <div class="text-center">
+
+        <a href="{% url 'journal_dashboard' %}"
+           class="btn btn-dark rounded-pill">
+
+            ← Back to My Journal
+
+        </a>
+
+    </div>
+
+</div>
+
+{% endblock %}

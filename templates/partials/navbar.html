@@ -1,39 +1,80 @@
-<nav class="navbar navbar-expand-lg bg-white border-bottom shadow-sm">
+<nav class="navbar navbar-expand-lg">
+
     <div class="container">
+
+        <!-- Brand -->
 
         <a class="navbar-brand fw-bold" href="/">
             🌸 Petal Pages
         </a>
 
-        <div class="ms-auto">
+
+        <!-- Navigation -->
+
+        <div class="d-flex align-items-center flex-wrap gap-2">
 
             {% if user.is_authenticated %}
 
-                <span class="me-3 fw-semibold">
+                <span class="fw-semibold me-2">
                     👋 Hi, {{ user.username }}
                 </span>
 
-                <form method="POST" action="{% url 'logout' %}" class="d-inline">
+
+                <a href="{% url 'journal_dashboard' %}"
+                   class="btn btn-dark">
+
+                    📖 My Journal
+
+                </a>
+
+
+                <a href="{% url 'trash' %}"
+                   class="btn btn-outline-dark">
+
+                    🗑️ Trash
+
+                </a>
+
+
+                <a href="{% url 'profile' %}"
+                   class="btn btn-outline-dark">
+
+                    👤 Profile
+
+                </a>
+
+
+                <form method="POST"
+                      action="{% url 'logout' %}"
+                      class="d-inline">
+
                     {% csrf_token %}
-                    <a href="{% url 'journal_dashboard' %}" class="btn btn-dark me-2">
-    📖 My Journal
-</a>
-<a href="{% url 'trash' %}" class="btn btn-outline-dark">
-    🗑️ Trash
-</a>
-                    <button type="submit" class="btn btn-outline-dark">
+
+                    <button type="submit"
+                            class="btn btn-outline-dark">
+
                         Logout
+
                     </button>
+
                 </form>
+
 
             {% else %}
 
-                <a href="{% url 'login' %}" class="btn btn-outline-dark me-2">
+                <a href="{% url 'login' %}"
+                   class="btn btn-outline-dark">
+
                     Login
+
                 </a>
 
-                <a href="{% url 'register' %}" class="btn btn-dark">
+
+                <a href="{% url 'register' %}"
+                   class="btn btn-dark">
+
                     Register
+
                 </a>
 
             {% endif %}
@@ -41,4 +82,5 @@
         </div>
 
     </div>
+
 </nav>

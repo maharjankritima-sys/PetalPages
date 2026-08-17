@@ -1,46 +1,228 @@
 {% extends "base.html" %}
 
-{% block title %}Register{% endblock %}
+{% block body_class %}auth-page{% endblock %}
+
+{% block title %}Register | Petal Pages{% endblock %}
 
 {% block content %}
 
-<div class="row justify-content-center">
+<div class="register-container">
 
-    <div class="col-md-5">
+    <div class="register-card">
 
-        <div class="card shadow-sm border-0 rounded-4">
+        <!-- Flower -->
 
-            <div class="card-body p-5">
+        <div class="register-icon">
+            🌸
+        </div>
 
-                <h2 class="text-center mb-4">
-                    Create Account
-                </h2>
 
-                <form method="POST">
-                    {% csrf_token %}
+        <!-- Heading -->
 
-                    {{ form.as_p }}
+        <div class="text-center mb-4">
 
-                    <button class="btn btn-dark w-100 mt-3">
-                        Register
-                    </button>
-                </form>
+            <h1 class="register-title">
+                Create Account
+            </h1>
 
-                <p class="text-center mt-4">
-                    Already have an account?
+            <p class="register-subtitle">
+                Join Petal Pages and start your journaling journey.
+            </p>
 
-                    <a href="{% url 'login' %}">
-                        Login
-                    </a>
+        </div>
 
-                </p>
+
+        <form method="POST">
+
+            {% csrf_token %}
+
+
+            <!-- Username -->
+
+            <div class="register-field mb-4">
+
+                <label for="{{ form.username.id_for_label }}"
+                       class="form-label">
+
+                    <i class="bi bi-person"></i>
+                    Username
+
+                </label>
+
+                {{ form.username }}
 
             </div>
 
-        </div>
+
+            <!-- Email -->
+
+            <div class="register-field mb-4">
+
+                <label for="{{ form.email.id_for_label }}"
+                       class="form-label">
+
+                    <i class="bi bi-envelope"></i>
+                    Email
+
+                </label>
+
+                {{ form.email }}
+
+            </div>
+
+
+            <!-- Password -->
+
+            <div class="register-field mb-4">
+
+                <label for="{{ form.password1.id_for_label }}"
+                       class="form-label">
+
+                    <i class="bi bi-lock"></i>
+                    Password
+
+                </label>
+
+                <div class="register-password-wrapper">
+
+                    {{ form.password1 }}
+
+                    <button
+                        type="button"
+                        class="register-password-toggle"
+                        onclick="toggleRegisterPassword(
+                            '{{ form.password1.id_for_label }}',
+                            this
+                        )">
+
+                        <i class="bi bi-eye"></i>
+
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <!-- Confirm Password -->
+
+            <div class="register-field mb-4">
+
+                <label for="{{ form.password2.id_for_label }}"
+                       class="form-label">
+
+                    <i class="bi bi-lock"></i>
+                    Password confirmation
+
+                </label>
+
+                <div class="register-password-wrapper">
+
+                    {{ form.password2 }}
+
+                    <button
+                        type="button"
+                        class="register-password-toggle"
+                        onclick="toggleRegisterPassword(
+                            '{{ form.password2.id_for_label }}',
+                            this
+                        )">
+
+                        <i class="bi bi-eye"></i>
+
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <!-- Errors -->
+
+            {% if form.errors %}
+
+                <div class="register-errors mb-3">
+
+                    {% for field in form %}
+
+                        {% for error in field.errors %}
+
+                            <div>
+                                {{ error }}
+                            </div>
+
+                        {% endfor %}
+
+                    {% endfor %}
+
+                    {% for error in form.non_field_errors %}
+
+                        <div>
+                            {{ error }}
+                        </div>
+
+                    {% endfor %}
+
+                </div>
+
+            {% endif %}
+
+
+            <!-- Register Button -->
+
+            <button
+                type="submit"
+                class="btn btn-dark register-button w-100">
+
+                Register
+
+            </button>
+
+        </form>
+
+
+        <!-- Login -->
+
+        <p class="text-center register-login-text">
+
+            Already have an account?
+
+            <a href="{% url 'login' %}">
+                Login
+            </a>
+
+        </p>
 
     </div>
 
 </div>
+
+
+<script>
+
+function toggleRegisterPassword(fieldId, button) {
+
+    const passwordField = document.getElementById(fieldId);
+    const icon = button.querySelector("i");
+
+    if (passwordField.type === "password") {
+
+        passwordField.type = "text";
+
+        icon.classList.remove("bi-eye");
+        icon.classList.add("bi-eye-slash");
+
+    } else {
+
+        passwordField.type = "password";
+
+        icon.classList.remove("bi-eye-slash");
+        icon.classList.add("bi-eye");
+
+    }
+
+}
+
+</script>
 
 {% endblock %}

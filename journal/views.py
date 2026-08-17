@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.db.models import Count, Q
 from django.contrib.auth.decorators import login_required
 from django.utils import timezone
+
 from .models import JournalEntry
 from .forms import JournalEntryForm
 
@@ -26,13 +27,19 @@ def dashboard(request):
 
     # Category filter
     category = request.GET.get("category", "").strip()
-    favorite = request.GET.get("favorite")
 
     if category:
-        journals = journals.filter(category=category)
+        journals = journals.filter(
+            category=category
+        )
+
+    # Favorites filter
+    favorite = request.GET.get("favorite")
 
     if favorite == "true":
-        journals = journals.filter(is_favorite=True)
+        journals = journals.filter(
+            is_favorite=True
+        )
 
     # Order newest first
     journals = journals.order_by("-created_at")
@@ -48,6 +55,19 @@ def dashboard(request):
         .order_by("-total")
     )
 
+    # Total active journals
+    total_journals = JournalEntry.objects.filter(
+        owner=request.user,
+        deleted_at__isnull=True
+    ).count()
+
+    # Total favorite journals
+    favorite_count = JournalEntry.objects.filter(
+        owner=request.user,
+        deleted_at__isnull=True,
+        is_favorite=True
+    ).count()
+
     return render(
         request,
         "journal/dashboard.html",
@@ -55,10 +75,14 @@ def dashboard(request):
             "journals": journals,
             "search": search,
             "category": category,
-            "mood_stats": mood_stats,
             "favorite": favorite,
+            "mood_stats": mood_stats,
+            "total_journals": total_journals,
+            "favorite_count": favorite_count,
         }
     )
+
+
 @login_required
 def toggle_favorite(request, journal_id):
 
@@ -74,6 +98,7 @@ def toggle_favorite(request, journal_id):
 
     return redirect("journal_dashboard")
 
+
 @login_required
 def create_journal(request):
 
@@ -82,6 +107,7 @@ def create_journal(request):
         form = JournalEntryForm(request.POST)
 
         if form.is_valid():
+
             journal = form.save(commit=False)
             journal.owner = request.user
             journal.save()
@@ -89,11 +115,16 @@ def create_journal(request):
             return redirect("journal_dashboard")
 
     else:
+
         form = JournalEntryForm()
 
-    return render(request, "journal/create.html", {
-        "form": form
-    })
+    return render(
+        request,
+        "journal/create.html",
+        {
+            "form": form
+        }
+    )
 
 
 @login_required
@@ -105,9 +136,13 @@ def journal_detail(request, journal_id):
         owner=request.user
     )
 
-    return render(request, "journal/detail.html", {
-        "journal": journal
-    })
+    return render(
+        request,
+        "journal/detail.html",
+        {
+            "journal": journal
+        }
+    )
 
 
 @login_required
@@ -127,12 +162,19 @@ def edit_journal(request, journal_id):
         )
 
         if form.is_valid():
+
             form.save()
-            return redirect("journal_detail", journal.id)
+
+            return redirect(
+                "journal_detail",
+                journal.id
+            )
 
     else:
 
-        form = JournalEntryForm(instance=journal)
+        form = JournalEntryForm(
+            instance=journal
+        )
 
     return render(
         request,
@@ -142,6 +184,8 @@ def edit_journal(request, journal_id):
             "journal": journal,
         }
     )
+
+
 @login_required
 def delete_journal(request, journal_id):
 
@@ -152,10 +196,13 @@ def delete_journal(request, journal_id):
         deleted_at__isnull=True
     )
 
+    # Soft delete
     journal.deleted_at = timezone.now()
     journal.save()
 
     return redirect("journal_dashboard")
+
+
 @login_required
 def trash(request):
 
@@ -171,6 +218,8 @@ def trash(request):
             "deleted_journals": deleted_journals,
         }
     )
+
+
 @login_required
 def delete_permanently(request, journal_id):
 
@@ -181,6 +230,43 @@ def delete_permanently(request, journal_id):
         deleted_at__isnull=False
     )
 
+    # Permanently delete from PostgreSQL
     journal.delete()
 
     return redirect("trash")
+@login_required
+def restore_journal(request, journal_id):
+
+    journal = get_object_or_404(
+        JournalEntry,
+        id=journal_id,
+        owner=request.user,
+        deleted_at__isnull=False
+    )
+
+    journal.deleted_at = None
+    journal.save()
+
+    return redirect("trash")
+@login_required
+def profile(request):
+
+    total_journals = JournalEntry.objects.filter(
+        owner=request.user,
+        deleted_at__isnull=True
+    ).count()
+
+    favorite_count = JournalEntry.objects.filter(
+        owner=request.user,
+        deleted_at__isnull=True,
+        is_favorite=True
+    ).count()
+
+    return render(
+        request,
+        "journal/profile.html",
+        {
+            "total_journals": total_journals,
+            "favorite_count": favorite_count,
+        }
+    )
