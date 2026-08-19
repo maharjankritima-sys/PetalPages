@@ -3,7 +3,7 @@ from django.db.models import Count, Q
 from django.contrib.auth.decorators import login_required
 from django.utils import timezone
 
-from .models import JournalEntry
+from .models import JournalEntry, JournalMedia
 from .forms import JournalEntryForm
 
 
@@ -104,15 +104,33 @@ def create_journal(request):
 
     if request.method == "POST":
 
-        form = JournalEntryForm(request.POST)
+        form = JournalEntryForm(
+            request.POST,
+            request.FILES
+        )
 
         if form.is_valid():
 
+            # Save journal
             journal = form.save(commit=False)
             journal.owner = request.user
             journal.save()
 
-            return redirect("journal_dashboard")
+            # Get all uploaded photos/videos
+            files = request.FILES.getlist("media")
+
+            # Save each media file
+            for uploaded_file in files:
+
+                JournalMedia.objects.create(
+                    journal=journal,
+                    file=uploaded_file
+                )
+
+            return redirect(
+                "journal_detail",
+                journal.id
+            )
 
     else:
 
@@ -125,8 +143,6 @@ def create_journal(request):
             "form": form
         }
     )
-
-
 @login_required
 def journal_detail(request, journal_id):
 
@@ -158,12 +174,23 @@ def edit_journal(request, journal_id):
 
         form = JournalEntryForm(
             request.POST,
+            request.FILES,
             instance=journal
         )
 
         if form.is_valid():
 
             form.save()
+
+            # Add newly uploaded photos/videos
+            files = request.FILES.getlist("media")
+
+            for uploaded_file in files:
+
+                JournalMedia.objects.create(
+                    journal=journal,
+                    file=uploaded_file
+                )
 
             return redirect(
                 "journal_detail",
@@ -269,4 +296,22 @@ def profile(request):
             "total_journals": total_journals,
             "favorite_count": favorite_count,
         }
+    )
+@login_required
+def delete_media(request, media_id):
+
+    media = get_object_or_404(
+        JournalMedia,
+        id=media_id,
+        journal__owner=request.user
+    )
+
+    journal_id = media.journal.id
+
+    media.file.delete(save=False)
+    media.delete()
+
+    return redirect(
+        "edit_journal",
+        journal_id
     )

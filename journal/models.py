@@ -11,15 +11,16 @@ class JournalEntry(models.Model):
         ("goals", "Goals"),
         ("other", "Other"),
     ]
+
     MOOD_CHOICES = [
-    ("happy", "😊 Happy"),
-    ("calm", "😌 Calm"),
-    ("loved", "🥰 Loved"),
-    ("sad", "😢 Sad"),
-    ("angry", "😡 Angry"),
-    ("anxious", "😰 Anxious"),
-    ("tired", "😴 Tired"),
-]
+        ("happy", "😊 Happy"),
+        ("calm", "😌 Calm"),
+        ("loved", "🥰 Loved"),
+        ("sad", "😢 Sad"),
+        ("angry", "😡 Angry"),
+        ("anxious", "😰 Anxious"),
+        ("tired", "😴 Tired"),
+    ]
 
     owner = models.ForeignKey(
         User,
@@ -34,11 +35,13 @@ class JournalEntry(models.Model):
         choices=CATEGORY_CHOICES,
         default="personal"
     )
+
     mood = models.CharField(
-    max_length=20,
-    choices=MOOD_CHOICES,
-    default="happy"
-)
+        max_length=20,
+        choices=MOOD_CHOICES,
+        default="happy"
+    )
+
     is_favorite = models.BooleanField(default=False)
 
     content = models.TextField()
@@ -46,7 +49,31 @@ class JournalEntry(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
 
     updated_at = models.DateTimeField(auto_now=True)
-    deleted_at = models.DateTimeField(null=True, blank=True)
+
+    deleted_at = models.DateTimeField(
+        null=True,
+        blank=True
+    )
 
     def __str__(self):
         return self.title
+
+
+class JournalMedia(models.Model):
+
+    journal = models.ForeignKey(
+        JournalEntry,
+        on_delete=models.CASCADE,
+        related_name="media"
+    )
+
+    file = models.FileField(
+        upload_to="journal_media/"
+    )
+
+    uploaded_at = models.DateTimeField(
+        auto_now_add=True
+    )
+
+    def __str__(self):
+        return f"Media for {self.journal.title}"

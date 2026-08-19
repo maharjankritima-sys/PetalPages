@@ -28,4 +28,9 @@ path(
     name="restore_journal"
 ),
 path("profile/", views.profile, name="profile"),
+path(
+    "media/<int:media_id>/delete/",
+    views.delete_media,
+    name="delete_media",
+),
 ]

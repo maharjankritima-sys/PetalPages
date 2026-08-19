@@ -11,73 +11,146 @@
 
         <div class="card-body p-4">
 
-            <h2 class="fw-bold">{{ journal.title }}</h2>
+            <!-- Title -->
+
+            <h2 class="fw-bold">
+                {{ journal.title }}
+            </h2>
+
+
+            <!-- Date -->
 
             <p class="text-muted">
-    {{ journal.created_at|date:"F d, Y" }}
-</p>
+                {{ journal.created_at|date:"F d, Y" }}
+            </p>
 
-<div class="d-flex gap-2 flex-wrap">
 
-    <span class="badge bg-light text-dark rounded-pill">
+            <!-- Category + Mood -->
 
-        {% if journal.category == "personal" %}
-            💭 Personal
-        {% elif journal.category == "study" %}
-            📚 Study
-        {% elif journal.category == "memories" %}
-            📸 Memories
-        {% elif journal.category == "goals" %}
-            🎯 Goals
-        {% elif journal.category == "other" %}
-            🌿 Other
-        {% endif %}
+            <div class="d-flex gap-2 flex-wrap">
 
-    </span>
+                <!-- Category -->
 
-    <span class="badge bg-light text-dark rounded-pill">
+                <span class="badge bg-light text-dark rounded-pill">
 
-        {% if journal.mood == "happy" %}
-            😊 Happy
-        {% elif journal.mood == "calm" %}
-            😌 Calm
-        {% elif journal.mood == "loved" %}
-            🥰 Loved
-        {% elif journal.mood == "sad" %}
-            😢 Sad
-        {% elif journal.mood == "angry" %}
-            😡 Angry
-        {% elif journal.mood == "anxious" %}
-            😰 Anxious
-        {% elif journal.mood == "tired" %}
-            😴 Tired
-        {% endif %}
+                    {% if journal.category == "personal" %}
+                        💭 Personal
+                    {% elif journal.category == "study" %}
+                        📚 Study
+                    {% elif journal.category == "memories" %}
+                        📸 Memories
+                    {% elif journal.category == "goals" %}
+                        🎯 Goals
+                    {% elif journal.category == "other" %}
+                        🌿 Other
+                    {% endif %}
 
-    </span>
+                </span>
 
-</div>
 
-</span>
+                <!-- Mood -->
+
+                <span class="badge bg-light text-dark rounded-pill">
+
+                    {% if journal.mood == "happy" %}
+                        😊 Happy
+                    {% elif journal.mood == "calm" %}
+                        😌 Calm
+                    {% elif journal.mood == "loved" %}
+                        🥰 Loved
+                    {% elif journal.mood == "sad" %}
+                        😢 Sad
+                    {% elif journal.mood == "angry" %}
+                        😡 Angry
+                    {% elif journal.mood == "anxious" %}
+                        😰 Anxious
+                    {% elif journal.mood == "tired" %}
+                        😴 Tired
+                    {% endif %}
+
+                </span>
+
+            </div>
+
+
             <hr>
+
+
+            <!-- Journal Content -->
 
             <p style="white-space: pre-line;" class="fs-5">
                 {{ journal.content }}
             </p>
 
+
+            <!-- Media -->
+
+          {% if journal.media.all %}
+
+    <hr>
+
+    <h3 class="fw-bold mb-3">
+        📸 Memories
+    </h3>
+
+    <div class="row g-3">
+
+        {% for media in journal.media.all %}
+
+            <div class="col-md-6">
+
+                {% if media.file.url|lower|slice:"-4:" == ".jpg" or media.file.url|lower|slice:"-5:" == ".jpeg" or media.file.url|lower|slice:"-4:" == ".png" or media.file.url|lower|slice:"-5:" == ".webp" %}
+
+                    <img
+                        src="{{ media.file.url }}"
+                        class="img-fluid rounded-4 shadow-sm"
+                        alt="Journal memory"
+                        style="width:100%; max-height:500px; object-fit:cover;"
+                    >
+
+                {% else %}
+
+                    <video
+                        controls
+                        class="w-100 rounded-4 shadow-sm"
+                        style="max-height:500px;"
+                    >
+                        <source src="{{ media.file.url }}">
+                        Your browser does not support the video tag.
+                    </video>
+
+                {% endif %}
+
+            </div>
+
+        {% endfor %}
+
+    </div>
+
+{% endif %}
+
+            <!-- Buttons -->
+
             <div class="mt-4 d-flex gap-2 flex-wrap">
 
-                <a href="{% url 'edit_journal' journal.id %}"
-                   class="btn btn-dark rounded-pill">
+                <a
+                    href="{% url 'edit_journal' journal.id %}"
+                    class="btn btn-dark rounded-pill"
+                >
                     ✏️ Edit
                 </a>
 
-                <a href="{% url 'delete_journal' journal.id %}"
-                   class="btn btn-danger rounded-pill">
+                <a
+                    href="{% url 'delete_journal' journal.id %}"
+                    class="btn btn-danger rounded-pill"
+                >
                     🗑️ Delete
                 </a>
 
-                <a href="{% url 'journal_dashboard' %}"
-                   class="btn btn-outline-dark rounded-pill">
+                <a
+                    href="{% url 'journal_dashboard' %}"
+                    class="btn btn-outline-dark rounded-pill"
+                >
                     ← Back
                 </a>
 
